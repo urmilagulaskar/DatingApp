@@ -18,8 +18,8 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto >> Register(RegisterDto register)
         {   
             if(await UserExists(register.Username)) return BadRequest("Username is taken");
-
-            using var hmac = new HMACSHA512();
+            return Ok();
+            /* using var hmac = new HMACSHA512();
             var user = new AppUser(){
                 UserName = register.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
@@ -31,7 +31,7 @@ namespace API.Controllers
             return new UserDto{
                 UserName = user.UserName,
                 Token = tokenService.CreateToken(user)
-            };
+            }; */
         }
         private async Task<bool> UserExists(string username)
         {
