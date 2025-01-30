@@ -54,7 +54,7 @@ export class MembersService {
     //Spread operator(three dots) in javascript
    const member: Member = [...this.memberCache.values()]
     .reduce((arr, elem)=> arr.concat(elem.body), [])
-    .find((m: Member) => m.userName === username);
+    .find((m: Member) => m.username === username);
     
     if(member) return of(member);
 

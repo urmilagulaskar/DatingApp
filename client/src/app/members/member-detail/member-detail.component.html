@@ -50,7 +50,7 @@
             </tab>
             <tab heading="Messages" (selectTab)="onTabActivated($event)">
                 <app-member-message 
-                    [username]="member.userName" 
+                    [username]="member.username" 
                     [messages]="messages"
                     (updateMessages)="onUpdateMessages($event)"
                 ></app-member-message>

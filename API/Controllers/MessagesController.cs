@@ -24,7 +24,8 @@ namespace API.Controllers
             var sender = await userRepository.GetUserByNameAsync(username);
             var recipient = await userRepository.GetUserByNameAsync(createMessage.RecipientUsername);
 
-            if (sender == null || recipient == null) return BadRequest("We cannot send message at this time");
+            if (sender == null || recipient == null || sender.UserName == null || recipient.UserName == null) 
+                return BadRequest("We cannot send message at this time");
 
             var message = new Message
             {
@@ -72,11 +73,11 @@ namespace API.Controllers
 
             // before dotnet 8: if(message.SenderDeleted == true || message.RecipientDeleted == true)
             // new way to achieve same in dotnet8 is as below (pattern matching with property pattern)
-            if (message is { SenderDeleted: true, RecipientDeleted: true }) 
+            if (message is { SenderDeleted: true, RecipientDeleted: true })
             {
                 messageRepository.DeleteMessage(message);
             }
-            if(await messageRepository.SaveAllAsync()) return Ok();
+            if (await messageRepository.SaveAllAsync()) return Ok();
 
             return BadRequest("Problem deleting the message");
         }
